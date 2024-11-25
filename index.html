@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music-Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/60e97e4705.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+    
+    <div class="player">
+        <img src="media/music player image.png" alt="">
+        <audio id="song" src="media/Hiyar Majhe Lukiye Chile.mp3"></audio>
+        <div id="songTitle">Amr Hiyer Majhe </div>
+        <input type="range" id="progress" value="0" step="0.1" />
+        <button id="ctrlIcon" onclick="playPause()">
+            <i class="fa-solid fa-play"></i> Play
+        </button>
+    </div>
+    
+    <Script>
+    
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        // When the audio metadata (duration) is loaded, set progress bar max value
+        song.onloadedmetadata = function() {
+            progress.max = song.duration;
+        };
+
+        // Update the progress bar as the song plays
+        song.ontimeupdate = function() {
+            progress.value = song.currentTime;
+        };
+
+        // Play/Pause functionality
+        function playPause() {
+            if (song.paused) {
+                song.play();
+                ctrlIcon.innerHTML = `<i class="fa-solid fa-pause"></i> Pause`;
+            } else {
+                song.pause();
+                ctrlIcon.innerHTML = `<i class="fa-solid fa-play"></i> Play`;
+            }
+        }
+            
+        progress.addEventListener("input", function() {
+            song.currentTime = progress.value;
+        });
+        
+
+    </script>
+</body>
+</html>
